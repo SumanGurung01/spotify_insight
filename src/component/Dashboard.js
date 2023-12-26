@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { State } from '../state-management/Context.js'
 import { Routes, Route } from 'react-router-dom';
 
@@ -10,10 +10,13 @@ import TopTrack from './TopTrack.js';
 import Recent from './Recent.js';
 import { TrackOnTerm } from './TopTrack.js';
 import { ArtistOnTerm } from './TopArtist.js'
+import ArtistWithId from './ArtistWithId.js';
+import PlaylistWithId from './PlaylistWithId.js';
+import TrackWithId from './TrackWithId.js';
 
 function Dashboard() {
 
-    const { accessToken, setUser, topArtist, setTopArtist, topTrack, setTopTrack, setPlaylist, setRecentlyPlayed } = useContext(State)
+    const { accessToken, setUser, topArtist, setTopArtist, topTrack, setTopTrack } = useContext(State)
 
     useEffect(() => {
         //get user information
@@ -101,51 +104,18 @@ function Dashboard() {
                 });
         };
 
-
-        // get user playlist
-        const getUserPlaylist = (accessToken) => {
-            fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    setPlaylist(data.items)
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        // get user recently played
-        const getRecentlyPlayed = (accessToken) => {
-            fetch('https://api.spotify.com/v1/me/player/recently-played?limit=50', {
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-            })
-                .then(response => response.json())
-                .then(data => {
-                    setRecentlyPlayed(data.items)
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
         getUser(accessToken)
         getUserTopArtist(accessToken)
         getUserTopTrack(accessToken)
-        getUserPlaylist(accessToken)
-        getRecentlyPlayed(accessToken)
 
     }, [])
 
     useEffect(() => {
-        console.log("Dashboard useEffect -> AccessToken : ", accessToken)
+        //logout after 1 hrs
+        setTimeout(() => {
+            sessionStorage.removeItem('accessToken')
+            window.location.reload()
+        }, 3600000); // 10000 milliseconds = 10 seconds
     }, [])
 
     return (
@@ -172,6 +142,13 @@ function Dashboard() {
                 <Route path="/recent" element={<Recent />} />
 
                 <Route path="/playlist" element={<Playlist />} />
+
+                <Route path="/track/:track_id" element={<TrackWithId />} />
+
+                <Route path="/artist/:artist_id" element={<ArtistWithId />} />
+
+                <Route path="/playlist/:playlist_id" element={<PlaylistWithId />} />
+
             </Routes>
         </div>
     )

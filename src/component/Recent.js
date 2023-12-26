@@ -1,23 +1,50 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { State } from '../state-management/Context.js'
 
 function Recent() {
 
-    const { recentlyPlayed, msToMusicTime } = useContext(State)
-    console.log(recentlyPlayed)
+    const { accessToken, recentlyPlayed, setRecentlyPlayed, msToMusicTime } = useContext(State)
+
+    // get user recently played
+    const getRecentlyPlayed = (accessToken) => {
+        fetch('https://api.spotify.com/v1/me/player/recently-played?limit=50', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setRecentlyPlayed(data.items)
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    useEffect(() => {
+        // if first time then fetch recentlyPlayed from api else use already assigned recentlyPlayed
+        if (recentlyPlayed.length === 0) {
+            getRecentlyPlayed(accessToken)
+        }
+    }, [])
+
     return (
-        <div className="pb-20 p-5 text-zinc-200 bg-zinc-900 md:pl-24 md:mt-0 md:pb-0">
+        <div className="text-zinc-200 bg-zinc-900 p-5 py-0 pb-24 md:ml-24 md:pb-5">
+            <h1 className="font-bold text-xl p-2 py-8">Recently Played</h1>
             {
-                recentlyPlayed.map(track => {
+                recentlyPlayed?.map(track => {
                     return (
-                        <div className="flex items-center p-3 m-0 rounded-md duration-300 cursor-pointer md:my-2 md:mx-20 hover:bg-zinc-800">
+                        <div className="flex items-center rounded-md p-2 duration-300 cursor-pointer hover:bg-zinc-800"
+                            key={track.id}
+                        >
 
                             <img
                                 src={track.track.album.images[0].url}
                                 className="w-16 h-16 object-cover md:w-18 md:h-18"
                             />
 
-                            <div className="flex-1 pl-4 pr-2">
+                            <div className="flex-1 ml-2">
                                 <p className="font-semibold text-base line-clamp-1">{track.track.name}</p>
                                 <p className="text-zinc-400 text-sm line-clamp-1">{track.track.artists[0].name} - {track.track.album.name}</p>
                             </div>

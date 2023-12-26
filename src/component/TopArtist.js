@@ -21,20 +21,27 @@ function TopArtist() {
     const initialActive = location.pathname === '/topArtist';
 
     return (
-        <div className="pb-20 justify-center items-center text-zinc-200 bg-zinc-900 md:pl-24">
+        <div className="text-zinc-200 bg-zinc-900 md:ml-24">
 
-            <div className="flex justify-around mb-10">
-                <NavLink to={'/topArtist/long_term'} className={({ isActive }) => (isActive ? 'font-bold' : `${initialActive ? "font-bold" : "text-zinc-400"}`)}>All Time</NavLink>
+            <div className="mx-5 pb-24 md:pb-5">
 
-                <NavLink to={'/topArtist/medium_term'} className={({ isActive }) => (isActive ? 'font-bold' : 'text-zinc-400')}>Last 6 Months</NavLink>
+                <div className="flex gap-4 p-2 py-8 text-base items-center">
 
-                <NavLink to={'/topArtist/short_term'} className={({ isActive }) => (isActive ? 'font-bold' : 'text-zinc-400')}>Last 4 weeks</NavLink>
+                    <h1 className="font-bold text-xl flex-1">Top Artists</h1>
+
+                    <NavLink to={'/topArtist/long_term'} className={({ isActive }) => (isActive ? 'font-bold' : `${initialActive ? "font-bold" : "text-zinc-400"}`)}>All Time</NavLink>
+
+                    <NavLink to={'/topArtist/medium_term'} className={({ isActive }) => (isActive ? 'font-bold' : 'text-zinc-400')}>Last 6 Months</NavLink>
+
+                    <NavLink to={'/topArtist/short_term'} className={({ isActive }) => (isActive ? 'font-bold' : 'text-zinc-400')}>Last 4 weeks</NavLink>
+
+                </div>
+
+                <div className="flex flex-wrap justify-center">
+                    <Outlet />
+                </div>
+
             </div>
-
-            <div className="flex flex-wrap justify-center">
-                <Outlet />
-            </div>
-
         </div>
     )
 }

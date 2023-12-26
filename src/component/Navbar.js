@@ -7,8 +7,14 @@ import { BiSolidPlaylist } from "react-icons/bi";
 import { FaMusic } from "react-icons/fa";
 
 function Navbar() {
+
+    const logOut = () => {
+        sessionStorage.removeItem('accessToken');
+        window.location.reload()
+    }
+
     return (
-        <div className="bottom-0 fixed flex w-full justify-center items-center bg-black md:flex-col md:left-0 md:h-screen md:w-24">
+        <div className="bottom-0 fixed flex w-full z-50 justify-center items-center bg-black md:flex-col md:left-0 md:h-screen md:w-24">
 
             <Link to={'/'} className="flex flex-col justify-center items-center  text-zinc-400 text-xl gap-1 w-full h-20 duration-200 hover:bg-zinc-900 hover:text-zinc-50">
                 <FaUser />
@@ -33,6 +39,8 @@ function Navbar() {
                 <BiSolidPlaylist />
                 <p className='text-sm'>Playlists</p>
             </Link>
+
+            <button onClick={logOut}>Log Out</button>
 
         </div>
     )
