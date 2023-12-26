@@ -1,10 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { State } from '../state-management/Context.js'
 import { Link } from 'react-router-dom'
 
 function Profile() {
 
     const { topArtist, topTrack, msToMusicTime } = useContext(State)
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     return (
         <div className="text-zinc-200 bg-zinc-900 md:ml-24">

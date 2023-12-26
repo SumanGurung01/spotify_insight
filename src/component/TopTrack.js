@@ -1,16 +1,20 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { State } from '../state-management/Context.js'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 
 
 export function TrackOnTerm({ track }) {
 
     const { msToMusicTime } = useContext(State)
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         track?.map(track => {
             return (
-                <div className="flex items-center p-2 rounded-md duration-300 cursor-pointer hover:bg-zinc-800">
+                <Link to={`/track/${track.id}`} className="flex items-center p-2 rounded-md duration-300 cursor-pointer hover:bg-zinc-800">
 
                     <img
                         src={track.album.images[0].url}
@@ -23,7 +27,7 @@ export function TrackOnTerm({ track }) {
                     </div>
 
                     <p className="font-semibold text-zinc-400 text-sm">{msToMusicTime(track.duration_ms)}</p>
-                </div>
+                </Link>
             )
         })
     )

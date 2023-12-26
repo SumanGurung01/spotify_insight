@@ -23,7 +23,7 @@ function Playlist() {
     }
 
     useEffect(() => {
-
+        window.scrollTo(0, 0)
         // if first time then fetch playlist from api else use already assigned playlist
         if (playlist.length === 0) {
             getUserPlaylist(accessToken)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
 export function ArtistOnTerm({ artist }) {
@@ -15,6 +15,10 @@ export function ArtistOnTerm({ artist }) {
     )
 }
 function TopArtist() {
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     // to style index Navlink : on first time load
     const location = useLocation();
