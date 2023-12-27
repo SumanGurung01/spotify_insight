@@ -48,11 +48,13 @@ function TopTrack() {
 
                     <h1 className="font-bold text-xl flex-1">Top Tracks</h1>
 
+
                     <NavLink to={'/topTrack/long_term'} className={({ isActive }) => (isActive ? 'font-bold underline' : `${initialActive ? "font-bold" : "text-zinc-400"}`)}>All Time</NavLink>
 
                     <NavLink to={'/topTrack/medium_term'} className={({ isActive }) => (isActive ? 'font-bold' : 'text-zinc-400')}>Last 6 Months</NavLink>
 
                     <NavLink to={'/topTrack/short_term'} className={({ isActive }) => (isActive ? 'font-bold' : 'text-zinc-400')}>Last 4 weeks</NavLink>
+
 
 
                 </div>

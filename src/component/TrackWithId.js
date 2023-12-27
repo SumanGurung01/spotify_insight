@@ -8,10 +8,12 @@ function TrackWithId() {
 
     const { track_id } = useParams();
 
-    const { accessToken, msToMusicTime, track, setTrack } = useContext(State)
+    const { accessToken, msToMusicTime } = useContext(State)
 
+    const [track, setTrack] = useState({})
     const [isLoading, setIsLoading] = useState(true)
 
+    console.log(track)
     const musicNotes = {
         0: "C",
         1: "C♯ / D♭",
@@ -145,13 +147,6 @@ function TrackWithId() {
         }
     }, [track])
 
-    // clear track on component Unmount
-    useEffect(() => {
-        return () => {
-            setTrack({})
-        };
-    }, [])
-
     return (
 
         isLoading ?
@@ -167,21 +162,28 @@ function TrackWithId() {
                 {/* when isloading show loader and when loaded opacity:0 */}
 
 
-                <div className="flex flex-col justify-center items-center md:flex-row md:justify-normal">
+                <div className="flex flex-col justify-center items-center md:flex-row md:justify-normal md:mx-20 lg:mx-32">
                     <img
-                        className="w-60 h-60 md:w-72 md:h-72"
-                        src={track.about?.album.images[0].url} />
-                    <div className="flex flex-col gap-2 my-4 justify-center items-center md:justify-normal md:items-start md:ml-8 md:gap-4">
-                        <p className="text-3xl font-bold line-clamp-1 md:text-4xl">{track.about?.name}</p>
-                        <p className="text-lg font-bold text-zinc-400 line-clamp-1 md:text-2xl">{track.about?.artists[0].name}</p>
+                        className="w-60 h-60 mt-2 md:w-72 md:h-72"
+                        src={track.about?.album.images[0].url}
+                    />
+
+                    <div className="flex flex-col gap-2 my-4 justify-center items-center md:mt-10 md:justify-normal md:items-start md:ml-8 md:gap-4">
+
+                        <p className="text-2xl font-bold line-clamp-1 md:text-4xl">{track.about?.name}</p>
+
+                        <a className="text-lg font-bold text-zinc-400 line-clamp-1 md:text-2xl hover:underline hover:text-zinc-200" href={track.about?.artists[0].external_urls.spotify} target="_blank">{track.about?.artists[0].name}</a>
+
                         <a className="text-base text-zinc-400 line-clamp-1 md:text-lg hover:underline hover:text-zinc-200" href={track.about?.album.external_urls.spotify} target="_blank">{track.about?.album.name} - {track.about?.album.release_date.substring(0, 4)}</a>
+
                         <a className="bg-[#1DB954] w-44 text-center font-semibold rounded-full px-6 py-3 my-8" href={track.about?.external_urls.spotify} target="_blank">Play on Spotify</a>
 
                     </div>
+
                 </div>
 
 
-                <div className="flex flex-wrap justify-center gap-1 md:my-10 md:justify-normal md:items-start">
+                <div className="flex flex-wrap justify-center gap-1 md:my-10 md:justify-normal md:items-start md:mx-20 lg:mx-32">
                     <Cell tag={"Duration"} value={msToMusicTime(track.about?.duration_ms)} />
                     <Cell tag={"Key"} value={musicNotes[track.features?.key]} />
                     <Cell tag={"Modality"} value={track.features?.mode === 1 ? "Major" : "Minor"} />
@@ -195,7 +197,7 @@ function TrackWithId() {
                 </div>
 
                 <p className="mt-20 text-center font-bold text-xl">Track Features</p>
-                <canvas id="myChart" className="mb-24 mx-5 mt-5 md:mx-32 lg:mx-56 xl:mx-96"></canvas>
+                <canvas id="myChart" className="mb-24 mx-5 mt-5 md:mx-32 md:mb-5 lg:mx-56 xl:mx-96"></canvas>
 
             </div>
     )

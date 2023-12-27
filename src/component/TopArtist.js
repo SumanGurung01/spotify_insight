@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, Link } from 'react-router-dom'
 
 export function ArtistOnTerm({ artist }) {
     return (
         artist?.map(artist => (
-            <div className="flex flex-col justify-center items-center m-6">
+            <Link to={`/artist/${artist.id}`} className="flex flex-col justify-center items-center m-6">
                 <img
                     src={artist.images[0].url}
-                    className="rounded-full w-36 h-36 object-cover duration-300 hover:scale-110 hover:cursor-pointer"
+                    className="rounded-full w-32 h-32 object-cover duration-300 hover:scale-110 hover:cursor-pointer md:w-36 md:h-36"
                 />
                 <p className="mt-3 font-semibold text-base line-clamp-1">{artist.name}</p>
-            </div>
+            </Link>
         ))
     )
 }

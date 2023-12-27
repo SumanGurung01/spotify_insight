@@ -15,6 +15,9 @@ function App() {
     if (_token) {
       setAccessToken(_token)
       sessionStorage.setItem('accessToken', _token);
+
+      // expire time will be 3600 sec from current login time
+      sessionStorage.setItem('expireTime', Math.floor(new Date().getTime() / 1000) + 3600);
     }
 
     window.location.hash = ""

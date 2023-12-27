@@ -110,14 +110,6 @@ function Dashboard() {
 
     }, [])
 
-    useEffect(() => {
-        //logout after 1 hrs
-        setTimeout(() => {
-            sessionStorage.removeItem('accessToken')
-            window.location.reload()
-        }, 3600000); // 10000 milliseconds = 10 seconds
-    }, [])
-
     return (
         <div className="bg-black h-screen">
             <Navbar />

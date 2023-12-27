@@ -4,7 +4,23 @@ export const State = createContext();
 
 function Context({ children }) {
 
-    const [accessToken, setAccessToken] = useState(sessionStorage.getItem('accessToken'))
+    const getTokenFromSessionStorage = () => {
+        // first time login
+        if (sessionStorage.getItem('accessToken') === null) return null
+
+        const expireTime = sessionStorage.getItem('expireTime')
+
+        // if token expired
+        if (expireTime <= Math.floor(new Date().getTime() / 1000)) {
+            sessionStorage.removeItem('accessToken')
+            sessionStorage.removeItem('expireTime')
+            return null
+        } else {
+            return sessionStorage.getItem('accessToken')
+        }
+    }
+
+    const [accessToken, setAccessToken] = useState(getTokenFromSessionStorage())
 
     const [user, setUser] = useState({})
     const [topArtist, setTopArtist] = useState({})
