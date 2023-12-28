@@ -1,5 +1,5 @@
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-const REDIRECT_URI = "https://SumanGurung01.github.io/"
+const REDIRECT_URI = "https://spotify-insight.vercel.app/"
 const CLIENT_ID = "f939fe844d8d42d782ad3516cbb80937"
 
 const allScopes = ["user-top-read", "user-read-recently-played", "user-follow-read"]
