@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { State } from '../state-management/Context.js'
 import { Routes, Route } from 'react-router-dom';
-
 import Navbar from './Navbar.js'
 import TopArtist from './TopArtist.js'
 import Profile from './Profile.js'
@@ -16,12 +15,23 @@ import TrackWithId from './TrackWithId.js';
 
 function Dashboard() {
 
-    const { accessToken, setUser, topArtist, setTopArtist, topTrack, setTopTrack } = useContext(State)
+    const { accessToken, topArtist, setTopArtist, topTrack, setTopTrack } = useContext(State)
 
-    useEffect(() => {
-        //get user information
-        const getUser = (accessToken) => {
-            fetch('https://api.spotify.com/v1/me', {
+    // get user top artist
+    const getUserTopArtist = (accessToken) => {
+
+        const terms = ["short_term", "medium_term", "long_term"];
+
+        // Initialize an object to store the different term data
+        var termData = {
+            short_term: [],
+            medium_term: [],
+            long_term: [],
+        };
+
+        // Use a Promise.all to wait for all fetch requests to complete
+        Promise.all(terms.map(term =>
+            fetch(`https://api.spotify.com/v1/me/top/artists?time_range=${term}&limit=50`, {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer ' + accessToken,
@@ -31,88 +41,62 @@ function Dashboard() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    setUser(data)
+                    termData[term] = data.items;
                 })
-                .catch(error => console.error('Error:', error));
-        }
+                .catch(error => console.error('Error:', error))
+        ))
+            .then(() => {
+                // After all requests are complete, update state in a single batch
+                setTopArtist(termData);
+            });
+    }
 
-        // get user top artist
-        const getUserTopArtist = (accessToken) => {
 
-            const terms = ["short_term", "medium_term", "long_term"];
+    // get user top track
+    const getUserTopTrack = (accessToken) => {
+        const terms = ["short_term", "medium_term", "long_term"];
 
-            // Initialize an object to store the different term data
-            const termData = {
-                short_term: [],
-                medium_term: [],
-                long_term: [],
-            };
-
-            // Use a Promise.all to wait for all fetch requests to complete
-            Promise.all(terms.map(term =>
-                fetch(`https://api.spotify.com/v1/me/top/artists?time_range=${term}&limit=50`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + accessToken,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        termData[term] = data.items;
-                    })
-                    .catch(error => console.error('Error:', error))
-            ))
-                .then(() => {
-                    // After all requests are complete, update state in a single batch
-                    setTopArtist(initial => ({ ...initial, ...termData }));
-                });
-
-        }
-
-        // get user top track
-        const getUserTopTrack = (accessToken) => {
-            const terms = ["short_term", "medium_term", "long_term"];
-
-            // Initialize an object to store the different term data
-            const termData = {
-                short_term: [],
-                medium_term: [],
-                long_term: [],
-            };
-
-            // Use a Promise.all to wait for all fetch requests to complete
-            Promise.all(terms.map(term =>
-                fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${term}&limit=50`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + accessToken,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        termData[term] = data.items;
-                    })
-                    .catch(error => console.error('Error:', error))
-            ))
-                .then(() => {
-                    // After all requests are complete, update state in a single batch
-                    setTopTrack(initial => ({ ...initial, ...termData }));
-                });
+        // Initialize an object to store the different term data
+        var termData = {
+            short_term: [],
+            medium_term: [],
+            long_term: [],
         };
 
-        getUser(accessToken)
+        // Use a Promise.all to wait for all fetch requests to complete
+        Promise.all(terms.map(term =>
+            fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${term}&limit=50`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    termData[term] = data.items;
+                })
+                .catch(error => console.error('Error:', error))
+        ))
+            .then(() => {
+                // After all requests are complete, update state in a single batch
+                setTopTrack(initial => ({ ...initial, ...termData }));
+            });
+    };
+
+
+    useEffect(() => {
         getUserTopArtist(accessToken)
         getUserTopTrack(accessToken)
-
     }, [])
 
+
     return (
-        <div className="bg-black h-screen">
+        <div className="bg-zinc-900 h-screen">
+
             <Navbar />
+
             <Routes>
 
                 <Route path="/" element={<Profile />} />
@@ -142,6 +126,7 @@ function Dashboard() {
                 <Route path="/playlist/:playlist_id" element={<PlaylistWithId />} />
 
             </Routes>
+
         </div>
     )
 }

@@ -5,15 +5,19 @@ export function ArtistOnTerm({ artist }) {
     return (
         artist?.map(artist => (
             <Link to={`/artist/${artist.id}`} className="flex flex-col justify-center items-center m-6">
+
                 <img
                     src={artist.images[0].url}
-                    className="rounded-full w-32 h-32 object-cover duration-300 hover:scale-110 hover:cursor-pointer md:w-36 md:h-36"
+                    className="rounded-full w-32 h-32 object-cover duration-300 md:w-36 md:h-36 hover:scale-110 hover:cursor-pointer"
                 />
+
                 <p className="mt-3 font-semibold text-base line-clamp-1">{artist.name}</p>
+
             </Link>
         ))
     )
 }
+
 function TopArtist() {
 
     useEffect(() => {

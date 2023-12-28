@@ -22,14 +22,14 @@ function Context({ children }) {
 
     const [accessToken, setAccessToken] = useState(getTokenFromSessionStorage())
 
-    const [user, setUser] = useState({})
-    const [topArtist, setTopArtist] = useState({})
-    const [topTrack, setTopTrack] = useState({})
-    const [playlist, setPlaylist] = useState([])
-    const [recentlyPlayed, setRecentlyPlayed] = useState([])
-    const [track, setTrack] = useState({})
-    const [artist, setArtist] = useState({})
-    const [singlePlaylist, setSinglePlaylist] = useState({})
+    const [user, setUser] = useState({})  // user information 
+    const [topArtist, setTopArtist] = useState({})  // user top artists
+    const [topTrack, setTopTrack] = useState({}) // user top tracks
+    const [playlist, setPlaylist] = useState([])  // user playlists
+    const [recentlyPlayed, setRecentlyPlayed] = useState([]) // user recently played
+    // const [track, setTrack] = useState({})
+    // const [artist, setArtist] = useState({})
+    // const [singlePlaylist, setSinglePlaylist] = useState({})
 
 
     function msToMusicTime(time) {
@@ -50,7 +50,7 @@ function Context({ children }) {
 
     return (
         <State.Provider
-            value={{ accessToken, setAccessToken, user, setUser, topArtist, setTopArtist, topTrack, setTopTrack, playlist, setPlaylist, msToMusicTime, recentlyPlayed, setRecentlyPlayed, track, setTrack, artist, setArtist, singlePlaylist, setSinglePlaylist }}
+            value={{ accessToken, setAccessToken, user, setUser, topArtist, setTopArtist, topTrack, setTopTrack, playlist, setPlaylist, msToMusicTime, recentlyPlayed, setRecentlyPlayed }}
         >
             {children}
         </State.Provider>

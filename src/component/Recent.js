@@ -38,13 +38,13 @@ function Recent() {
 
         isLoading ?
             <div className="w-screen h-screen fixed flex justify-center items-center bg-zinc-900 md:pl-24">
-                <ScaleLoader
-                    className={`${isLoading ? null : "display:none"}`}
-                    color={'#1db954'} height={80} width={10} />
+                <ScaleLoader color={'#1db954'} height={80} width={10} />
             </div>
             :
             <div className="text-zinc-200 bg-zinc-900 p-5 py-0 pb-24 md:ml-24 md:pb-5">
+
                 <h1 className="font-bold text-xl p-2 py-8">Recently Played</h1>
+
                 {
                     recentlyPlayed?.map(track => {
                         return (

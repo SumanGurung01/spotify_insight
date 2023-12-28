@@ -11,9 +11,9 @@ function TrackWithId() {
     const { accessToken, msToMusicTime } = useContext(State)
 
     const [track, setTrack] = useState({})
+
     const [isLoading, setIsLoading] = useState(true)
 
-    console.log(track)
     const musicNotes = {
         0: "C",
         1: "C♯ / D♭",
@@ -130,7 +130,6 @@ function TrackWithId() {
                     }],
                 },
                 options: {
-
                     responsive: true,
                     aspectRatio: 1,
                     plugins: {
@@ -140,64 +139,59 @@ function TrackWithId() {
                     },
                 }
             })
-
-            // return () => {
-            //     barChart.destroy();
-            // };
         }
     }, [track])
 
     return (
 
-        isLoading ?
+        isLoading
+            ?
             <div className="w-screen h-screen fixed flex justify-center items-center bg-zinc-900 md:pl-24">
-
-                <ScaleLoader
-                    className={`${isLoading ? null : "display:none"}`}
-                    color={'#1db954'} height={80} width={10} />
+                <ScaleLoader color={'#1db954'} height={80} width={10} />
             </div>
             :
-            <div className="text-zinc-200 bg-zinc-900 p-7 md:ml-24">
+            <div className="text-zinc-200 bg-zinc-900 flex flex-col pt-3 md:ml-24 md:flex-row">
 
-                {/* when isloading show loader and when loaded opacity:0 */}
+                <div className="flex flex-col justify-center items-center m-5 md:w-1/2 pl-2 md:items-start md:justify-start">
 
-
-                <div className="flex flex-col justify-center items-center md:flex-row md:justify-normal md:mx-20 lg:mx-32">
                     <img
-                        className="w-60 h-60 mt-2 md:w-72 md:h-72"
+                        className="w-60 h-60 my-2 md:w-72 md:h-72"
                         src={track.about?.album.images[0].url}
                     />
 
-                    <div className="flex flex-col gap-2 my-4 justify-center items-center md:mt-10 md:justify-normal md:items-start md:ml-8 md:gap-4">
+                    <div className="flex flex-col gap-3 justify-center items-center md:items-start md:justify-start">
 
-                        <p className="text-2xl font-bold line-clamp-1 md:text-4xl">{track.about?.name}</p>
+                        <p className="text-3xl font-bold line-clamp-1">{track.about?.name}</p>
 
-                        <a className="text-lg font-bold text-zinc-400 line-clamp-1 md:text-2xl hover:underline hover:text-zinc-200" href={track.about?.artists[0].external_urls.spotify} target="_blank">{track.about?.artists[0].name}</a>
+                        <a className="text-xl font-semibold text-zinc-400 line-clamp-1 hover:underline" href={track.about?.artists[0].external_urls.spotify} target="_blank">{track.about?.artists[0].name}</a>
 
-                        <a className="text-base text-zinc-400 line-clamp-1 md:text-lg hover:underline hover:text-zinc-200" href={track.about?.album.external_urls.spotify} target="_blank">{track.about?.album.name} - {track.about?.album.release_date.substring(0, 4)}</a>
+                        <a className="text-lg font-semibold text-zinc-400 line-clamp-1 hover:underline" href={track.about?.album.external_urls.spotify} target="_blank">{track.about?.album.name} - {track.about?.album.release_date.substring(0, 4)}</a>
 
-                        <a className="bg-[#1DB954] w-44 text-center font-semibold rounded-full px-6 py-3 my-8" href={track.about?.external_urls.spotify} target="_blank">Play on Spotify</a>
+                        <a className="bg-[#1DB954] w-44 text-center font-semibold rounded-full px-6 py-3 my-6 mb-10" href={track.about?.external_urls.spotify} target="_blank">Play on Spotify</a>
 
+                    </div>
+
+                    <div className="flex flex-wrap gap-1 justify-center items-center md:items-start md:justify-start">
+                        <Cell tag={"Duration"} value={msToMusicTime(track.about?.duration_ms)} />
+                        <Cell tag={"Key"} value={musicNotes[track.features?.key]} />
+                        <Cell tag={"Modality"} value={track.features?.mode === 1 ? "Major" : "Minor"} />
+                        <Cell tag={"Time Signature"} value={track.features?.time_signature} />
+                        <Cell tag={"Tempo (BPM)"} value={Math.floor(track.features?.tempo)} />
+                        <Cell tag={"Popularity"} value={`${track.about?.popularity}%`} />
+                        <Cell tag={"Bars"} value={track.analysis?.bars.length} />
+                        <Cell tag={"Beats"} value={track.analysis?.beats.length} />
+                        <Cell tag={"Sections"} value={track.analysis?.sections.length} />
+                        <Cell tag={"Segments"} value={track.analysis?.segments.length} />
                     </div>
 
                 </div>
 
+                <div className="m-5 md:w-1/2">
 
-                <div className="flex flex-wrap justify-center gap-1 md:my-10 md:justify-normal md:items-start md:mx-20 lg:mx-32">
-                    <Cell tag={"Duration"} value={msToMusicTime(track.about?.duration_ms)} />
-                    <Cell tag={"Key"} value={musicNotes[track.features?.key]} />
-                    <Cell tag={"Modality"} value={track.features?.mode === 1 ? "Major" : "Minor"} />
-                    <Cell tag={"Time Signature"} value={track.features?.time_signature} />
-                    <Cell tag={"Tempo (BPM)"} value={Math.floor(track.features?.tempo)} />
-                    <Cell tag={"Popularity"} value={`${track.about?.popularity}%`} />
-                    <Cell tag={"Bars"} value={track.analysis?.bars.length} />
-                    <Cell tag={"Beats"} value={track.analysis?.beats.length} />
-                    <Cell tag={"Sections"} value={track.analysis?.sections.length} />
-                    <Cell tag={"Segments"} value={track.analysis?.segments.length} />
+                    <p className="text-center font-bold text-xl">Track Features</p>
+
+                    <canvas id="myChart" className="mb-24 md:mr-10 lg:mr-20 xl:mr-32 2xl:mr-60"></canvas>
                 </div>
-
-                <p className="mt-20 text-center font-bold text-xl">Track Features</p>
-                <canvas id="myChart" className="mb-24 mx-5 mt-5 md:mx-32 md:mb-5 lg:mx-56 xl:mx-96"></canvas>
 
             </div>
     )

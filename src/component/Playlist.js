@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { State } from '../state-management/Context.js'
 import ScaleLoader from "react-spinners/ScaleLoader";
+import { Link } from 'react-router-dom';
 
 function Playlist() {
 
@@ -10,6 +11,7 @@ function Playlist() {
 
     // get user playlist
     const getUserPlaylist = (accessToken) => {
+
         fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
             method: 'GET',
             headers: {
@@ -36,27 +38,32 @@ function Playlist() {
 
 
     return (
-        isLoading ?
+        isLoading
+            ?
             <div className="w-screen h-screen fixed flex justify-center items-center bg-zinc-900 md:pl-24">
-                <ScaleLoader
-                    className={`${isLoading ? null : "display:none"}`}
-                    color={'#1db954'} height={80} width={10} />
+                <ScaleLoader color={'#1db954'} height={80} width={10} />
             </div>
             :
             <div className="bg-zinc-900 pb-24 text-zinc-200 px-7 md:pl-24 md:pb-5">
-                <h1 className="text-xl font-bold py-8 md:px-7">Your Playlists</h1>
+
+                <h1 className="text-xl font-bold py-8 text-center md:text-left md:px-7">Your Playlists</h1>
+
                 <div className="flex flex-wrap justify-center gap-10">
-                    {playlist?.map(list => {
-                        return (
-                            <div className="w-72 flex flex-col gap-2 duration-500 cursor-pointer hover:underline md:w-60" key={list.id}>
-                                <img
-                                    className="w-72 md:w-60"
-                                    src={list.images[0].url} />
-                                <p className="font-bold text-lg line-clamp-1">{list.name}</p>
-                                <p className="text-zinc-400 text-sm line-clamp-1 font-semibold">{list.tracks.total} Tracks</p>
-                            </div>
-                        )
-                    })}
+                    {
+                        playlist?.map(list => {
+                            return (
+                                <Link to={`/playlist/${list.id}`} className="w-72 flex flex-col gap-2 duration-500 cursor-pointer md:w-60 hover:underline " key={list.id}>
+
+                                    <img
+                                        className="w-72 md:w-60"
+                                        src={list.images[0].url} />
+
+                                    <p className="font-bold text-lg line-clamp-1">{list.name}</p>
+
+                                    <p className="text-zinc-400 text-sm line-clamp-1 font-semibold">{list.tracks.total} Tracks</p>
+                                </Link>
+                            )
+                        })}
                 </div>
             </div>
     )

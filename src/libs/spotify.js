@@ -1,8 +1,8 @@
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-const REDIRECT_URI = "http://localhost:3000/"
+const REDIRECT_URI = "https://sumansurung01.github.io/spotify_insight/"
 const CLIENT_ID = "f939fe844d8d42d782ad3516cbb80937"
 
-const allScopes = ["user-top-read", "user-read-recently-played"]
+const allScopes = ["user-top-read", "user-read-recently-played", "user-follow-read"]
 
 const scopeString = allScopes.join("%20")
 
