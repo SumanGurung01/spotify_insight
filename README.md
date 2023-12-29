@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Spotify Insight
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Spotify Insight is a web application that provides users with a detailed analysis of their Spotify listening habits. Users can explore their top artists and tracks. Additionally, user can view information of their favorite songs and playlists and visualize various other tracks and playlists characteristics through interactive graphs.
 
-## Available Scripts
+## Link
+Check out the Website [Click here](https://spotify-insight.vercel.app/)
 
-In the project directory, you can run:
+## Features
+- **Authentication**: You need to have a Spotify Account (free or premium) to Login.
+- **Top Artists and Tracks**: View your most-listened-to artists and tracks for the past 4 weeks, 6 months, and all time.
+- **Artists Overview**: View your top artists details and their popular albums and tracks.
+- **Recently Played Tracks**: Explore the songs you've listened to most recently.
+- **Track and Playlist Features**: Dive into the details of your favorite songs, including key, scale, mode, tempo, and more.
+- **Audio and playlist Feature Graphs**: Visualize the characteristics of your music and playsist with interactive graphs displaying danceability, acousticness, instrumentalness, valence, speechiness, and more.
 
-### `npm start`
+## Responsive Design
+Whether you're on your desktop, tablet, or mobile device, Spotify Insight ensures a consistent and user-friendly experience. The responsive design adapts seamlessly to various screen sizes.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<img src="https://github.com/SumanGurung01/spotify_insight/assets/92732976/df49613b-c27f-4699-8daf-f8befd2d82aa" width=100 height=200>
+<img src="https://github.com/SumanGurung01/spotify_insight/assets/92732976/d9b9a0cf-5fee-4560-8f48-2a62cb57c8bd" width=350 height=200>
+<img src="https://github.com/SumanGurung01/spotify_insight/assets/92732976/22ee3c34-8d1e-49e1-a670-eac22316738f" width=150 height=200>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## How to Use
+1. **Login**: Log in with your Spotify account.
+2. **Explore**: Explore your top artists, tracks, and recently played songs.
+3. **View Details**: Click on specific tracks to view detailed features.
+4. **Analyze**: Analyze the characteristics of your musics and playlists through interactive graphs.
 
-### `npm test`
+## Technologies Used
+- **React** in Frontend
+- **react-icons and react-router-dom** for Icons and Routing
+- **Tailwind CSS** for Styling
+- **Spotify Web API** for data and authentication
+- **Context API** for State Management
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Feedback
+We welcome your feedback and contributions. Feel free to open an issue, submit a pull request, or reach out with your thoughts and ideas.
