@@ -37,7 +37,7 @@ function App() {
 
       <h1 className="text-center text-4xl font-bold text-slate-100 md:text-7xl">
         Discover how you listen <br></br>using{" "}
-        <span className="text-green-500">Spotify Insights</span>.
+        <span className="text-green-500">Spotify Insight</span>
       </h1>
 
       <a
