@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import Dashboard from "./component/Dashboard.js";
+import albumArt from "./assets/albumart.jpg";
 
 import { loginUrl, getAccessToken } from "./libs/spotify.js";
 import { State } from "./state-management/Context.js";
@@ -27,19 +28,21 @@ function App() {
   return accessToken !== null ? (
     <Dashboard />
   ) : (
-    <div className="flex h-screen flex-col items-center justify-center bg-black">
+    <div className="flex h-screen flex-col items-center justify-center px-5">
       <img
-        src={
-          "https://kreafolk.com/cdn/shop/articles/BlogThumbnail_751d3381-21a8-49d0-bf12-ca7f83b205f6.jpg?v=1692901525&width=2048"
-        }
-        className="w-64"
+        src={albumArt}
+        className="absolute -z-10 h-full w-full object-cover brightness-[0.2]"
+        alt="album art"
       />
 
-      <h1 className="text-2xl text-slate-100">Welcome to Spotify Insight</h1>
+      <h1 className="text-center text-4xl font-bold text-slate-100 md:text-7xl">
+        Discover how you listen <br></br>using{" "}
+        <span className="text-green-500">Spotify Insight</span>.
+      </h1>
 
       <a
         href={loginUrl}
-        className="my-10 rounded-full bg-[#1DB954] px-6 py-3 text-xl text-slate-50"
+        className="my-16 rounded-full bg-green-500 px-6 py-3 text-xl font-semibold text-slate-50"
       >
         Login with Spotify
       </a>
