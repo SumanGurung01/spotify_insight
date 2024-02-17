@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import Dashboard from "./component/Dashboard.js";
-import albumArt from "./assets/albumart.jpg";
 
 import { loginUrl, getAccessToken } from "./libs/spotify.js";
 import { State } from "./state-management/Context.js";
@@ -28,16 +27,10 @@ function App() {
   return accessToken !== null ? (
     <Dashboard />
   ) : (
-    <div className="mx-5 flex h-screen flex-col items-center justify-center">
-      <img
-        src={albumArt}
-        className="absolute -z-10 h-full w-full object-cover brightness-[0.2]"
-        alt="album art"
-      />
-
-      <h1 className="text-center text-4xl font-bold text-slate-100 md:text-7xl">
+    <div className="flex h-screen flex-col items-center justify-center bg-zinc-900">
+      <h1 className="p-3 text-center text-4xl font-bold text-slate-100 md:text-7xl">
         Discover how you listen <br></br>using{" "}
-        <span className="text-green-500">Spotify Insight</span>
+        <span className="text-green-500">Spotify Insight</span>.
       </h1>
 
       <a
